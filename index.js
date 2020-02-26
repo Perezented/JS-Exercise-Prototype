@@ -41,30 +41,33 @@ Airplane.prototype.land = function() {
 function Person(name, age) {
     (this.name = name), (this.age = age), (this.stomach = []);
 }
+
 Person.prototype.eat = function(food) {
     if (this.stomach.length < 10) {
         return this.stomach.push(food);
     } else return null;
 };
+
 Person.prototype.poop = function() {
     return (this.stomach.length = 0);
 };
+
 Person.prototype.toString = function() {
     return `${this.name},${this.age}`;
 };
 
 /*
   TASK 2
-    - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
-    - All instances built with Car:
-        + should initialize with an `tank` at 0
-        + should initialize with an `odometer` at 0
-    - Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
-    - STRETCH: Give cars ability to `.drive(distance)`. The distance driven:
-        + Should cause the `odometer` to go up.
-        + Should cause the the `tank` to go down taking `milesPerGallon` into account.
-    - STRETCH: A car which runs out of `fuel` while driving can't drive any more distance:
-        + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
+                - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
+                - All instances built with Car:
+                    + should initialize with an `tank` at 0
+                    + should initialize with an `odometer` at 0
+                - Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
+  - STRETCH: Give cars ability to `.drive(distance)`. The distance driven:
+      + Should cause the `odometer` to go up.
+      + Should cause the the `tank` to go down taking `milesPerGallon` into account.
+  - STRETCH: A car which runs out of `fuel` while driving can't drive any more distance:
+      + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
 function Car(model, milesPerGallon) {
@@ -83,7 +86,14 @@ Car.prototype.fill = function(gallons) {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {}
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function() {
+    return `Playing with ${this.favoriteToy}`;
+};
+function Baby(name, age, favoriteToy) {
+    Person.call(this, name, age);
+    this.favoriteToy = favoriteToy;
+}
 
 /* 
   TASK 4
